@@ -1,6 +1,9 @@
 const  { getTodo, addTodo , newTodo } = require("./CRUD.js");
 const express = require("express");
 const app = express();
+const uid = require("uuid");
+const uniqId = uid.v4();
+
 app.use(express.json());
 
 app.get("/gettodo", (req,res)=>{
@@ -11,14 +14,16 @@ app.get("/gettodo", (req,res)=>{
 
 app.post("/addtodo",(req,res)=>{
   let taskitem = req.body;
+  taskitem.id = uniqId;
+
   console.log(taskitem);
   let mssg= addTodo(taskitem);
   res.send(mssg);
-})
+});
 
 app.delete("/delete/:id" , (req , res)=>{
     let data = getTodo();
-    const found = data.some(element=>element.id===parseInt(req.params.id))
+    const found = data.some(element=>element.id==req.params.id)
     
     if(found){
        for(let i=0; i<data.length; i++){
@@ -41,7 +46,7 @@ app.delete("/delete/:id" , (req , res)=>{
 app.patch("/edit/:id" , (req , res)=>{
     let data = getTodo();
     let newData = req.body;
-    const found = data.some(element=>element.id===parseInt(req.params.id))
+    const found = data.some(element=>element.id==req.params.id)
 
    if(found){
       data.forEach(element => {
