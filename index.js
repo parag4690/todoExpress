@@ -1,11 +1,7 @@
 const  { getTodo, addTodo , newTodo } = require("./CRUD.js");
-
 const express = require("express");
 const app = express();
-app.use(express.urlencoded({extended:true}));
-app.use(express.json())
-
-
+app.use(express.json());
 
 app.get("/gettodo", (req,res)=>{
   let data  = getTodo();
@@ -63,4 +59,4 @@ app.patch("/edit/:id" , (req , res)=>{
 
 app.listen(3000,()=>{
     console.log("server started");
-})
+});

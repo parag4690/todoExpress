@@ -28,13 +28,14 @@ function addTodo(value) {
 }
 
 function newTodo(data){
-    
+
     try{
       fs.writeFileSync(filePath,JSON.stringify(data));
     }catch(err){
         console.error(err.message);
         return null;
     }
+
 }
 
 module.exports = { getTodo, addTodo , newTodo };
